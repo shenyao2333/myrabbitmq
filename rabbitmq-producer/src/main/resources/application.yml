@@ -1,0 +1,9 @@
+spring:
+  rabbitmq:
+    host: 47.97.192.128
+    port: 5672
+    username: shenyao
+    password: 123456
+    virtual-host: /
+    publisher-confirms: true
+
