@@ -4,6 +4,10 @@ spring:
     port: 5672
     username: shenyao
     password: 123456
-    virtual-host: /
+    virtual-host: /test
     publisher-confirms: true
+
+  #当遇到同样名字的时候，是否允许覆盖注册
+    # main:
+    # allow-bean-definition-overriding: true
 

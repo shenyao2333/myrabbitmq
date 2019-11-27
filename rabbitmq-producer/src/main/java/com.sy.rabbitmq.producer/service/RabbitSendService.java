@@ -16,4 +16,6 @@ public interface RabbitSendService {
 
     void sendDemo2Message(String message);
 
+    void sendFanoutMessage(String message);
+
 }

@@ -3,25 +3,38 @@ package com.sy.rabbitmq.producer.config;
 import com.sy.rabbitmq.producer.rabbitmq.RabbitConfirmCallBack;
 import com.sy.rabbitmq.producer.rabbitmq.RabbitReturnCallback;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
+import org.springframework.amqp.rabbit.core.RabbitMessagingTemplate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.stereotype.Component;
 /**
- * <p>
- * </p>
- *
- * @author ：sy
- * @date ：Created in 2019.11.24 23:09
- * @version:
+ * @author sy
+ * Date: 2019/11/24 23:01
+ * @Description 关于MQ的配置
  */
 @Component
 @Slf4j
-public class RabbitMQBack {
+public class RabbitMQConfig {
 
     @Autowired
     private ConnectionFactory connectionFactory;
+
+
+    @Bean
+    public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(ConnectionFactory connectionFactory) {
+        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+        factory.setConnectionFactory(connectionFactory);
+        factory.setMessageConverter(new Jackson2JsonMessageConverter());
+        return factory;
+    }
+
+
 
     /**
      * 定义rabbit template用于数据的接收和发送
@@ -70,4 +83,26 @@ public class RabbitMQBack {
     public RabbitReturnCallback msgSendReturnCallback(){
         return new RabbitReturnCallback();
     }
+
+
+    /**
+     * 生产者用 可以用来转化为json
+     *
+     * @return
+     */
+    @Bean
+    public RabbitMessagingTemplate rabbitMessagingTemplate(RabbitTemplate rabbitTemplate) {
+        log.info("未转json格式前------->"+rabbitTemplate.toString());
+        RabbitMessagingTemplate rabbitMessagingTemplate = new RabbitMessagingTemplate();
+        rabbitMessagingTemplate.setMessageConverter(jackson2Converter());
+        rabbitMessagingTemplate.setRabbitTemplate(rabbitTemplate);
+        return rabbitMessagingTemplate;
+    }
+
+    @Bean
+    public MappingJackson2MessageConverter jackson2Converter() {
+        return new MappingJackson2MessageConverter();
+    }
+
+
 }

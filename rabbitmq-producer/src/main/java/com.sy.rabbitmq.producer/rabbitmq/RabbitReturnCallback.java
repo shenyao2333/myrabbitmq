@@ -19,11 +19,12 @@ public class RabbitReturnCallback implements RabbitTemplate.ReturnCallback  {
 
     @Override
     public void returnedMessage(Message message, int replyCode, String replyText, String exchange, String routingKey) {
+        log.info("----------消息从交换器推送到列队失败--------");
         log.info("消息主体: {}", message);
         log.info("回复编码: {}", replyCode);
         log.info("回复内容: {}", replyText);
         log.info("交换器: {}", exchange);
         log.info("路由键: {}", routingKey);
-
+        log.info("----------end--------");
     }
 }

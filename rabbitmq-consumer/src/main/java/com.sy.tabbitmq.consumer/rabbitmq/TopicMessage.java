@@ -1,5 +1,6 @@
 package com.sy.tabbitmq.consumer.rabbitmq;
 
+import com.sy.rabbitmq.common.config.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
@@ -15,25 +16,20 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class RabbitMQMessage {
+public class TopicMessage {
 
-    @RabbitListener(queues = "topic.demo1")
+    @RabbitListener(queues = Constants.TOPIC_DEMO1_QUEUE)
     public void test1(String message){
         System.out.println("开始消费topic.demo1的消息：" + message);
     }
 
 
 
-    @RabbitListener(queues = "topic.*")
-    public void test2(String message){
-        System.out.println("开始消费topic.*的消息：" + message);
-    }
-
-    @RabbitListener(queues = "topic.demo2")
+   /* @RabbitListener(queues = Constants.TOPIC_DEMO2_QUEUE)
     public void test3(String message){
         System.out.println("开始消费topic.demo2的消息：" + message);
     }
-
+*/
 
 
 

@@ -26,10 +26,10 @@ public class RabbitConfirmCallBack implements RabbitTemplate.ConfirmCallback {
     @Override
     public void confirm(@Nullable CorrelationData correlationData, boolean b, @Nullable String s) {
        // System.out.println("发送的消息为ID为"+correlationData.getId());
-        log.info("发送的消息为ID为："+correlationData);
         if(b){
-            log.info("发送成功");
+            log.info("消息推送到交换器成功");
         }else{
+            log.info("消息推送到交换器失败");
             // 失败原因
             System.out.println("失败的原因：" + s);
         }

@@ -36,5 +36,10 @@ public class RabbitSendServiceImpl implements RabbitSendService {
         rabbitTemplate.convertAndSend(Constants.SY_TOPIC,Constants.TOPIC_DEMO2_QUEUE,message);
     }
 
+    @Override
+    public void sendFanoutMessage(String message) {
+        rabbitTemplate.convertAndSend(Constants.SY_FANOUT,"",message);
+    }
+
 
 }
