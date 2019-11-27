@@ -1,3 +1,6 @@
+server:
+  port: 8889
+
 spring:
   rabbitmq:
     host: 47.97.192.128
@@ -6,5 +9,11 @@ spring:
     password: 123456
     virtual-host: /test
     publisher-confirms: true
-server:
-  port: 8889
+    publisher-returns: true
+    listener:
+      direct:
+        acknowledge-mode: MANUAL
+      simple:
+        acknowledge-mode: manual
+        retry:
+          enabled: true

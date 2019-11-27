@@ -3,9 +3,13 @@ package com.sy.tabbitmq.consumer.rabbitmq;
 import com.rabbitmq.client.Channel;
 import com.sy.rabbitmq.common.config.Constants;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.messaging.Message;
+
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.util.UUID;
 
 /**
  * @author sy
@@ -16,18 +20,30 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class FanoutMessage {
 
+    static int i=1;
+
 
     @RabbitListener(queues = Constants.FANOUT_DEMO1_QUEUE)
-    public void test1(String message){
-        System.out.println("消息通道"+Constants.FANOUT_DEMO1_QUEUE+": 收到消息"+message);
+    public void test1(Message message, Channel channel) throws IOException {
+        System.out.println("消息1进来");
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(),true);
     }
 
 
 
     @RabbitListener(queues = Constants.FANOUT_DEMO2_QUEUE)
-    public void test2(Message message, Channel channel){
-        System.out.println("消息通道"+Constants.FANOUT_DEMO2_QUEUE+": 收到消息"+message.toString());
-        System.out.println(message.getPayload().toString());
+    public void test2(Message message, Channel channel) throws IOException {
+        System.out.println("进来i"+i);
+        System.out.println(message.getMessageProperties().toString());
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(), true);
+        i++;
+        if (i<10){
+            System.out.println("进来方法");
+            channel.basicNack(message.getMessageProperties().getDeliveryTag(),false, true);
+            System.out.println("尝试重发：" + message.getMessageProperties().getConsumerQueue());
+        }else {
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(),true);
+        }
     }
 
 
