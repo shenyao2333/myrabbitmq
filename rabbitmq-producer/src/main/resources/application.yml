@@ -6,8 +6,11 @@ spring:
     password: 123456
     virtual-host: /test
     publisher-confirms: true
+    publisher-returns: true
+    template:
+      mandatory: true
 
   #当遇到同样名字的时候，是否允许覆盖注册
-    # main:
-    # allow-bean-definition-overriding: true
+  main:
+    allow-bean-definition-overriding: true
 

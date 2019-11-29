@@ -42,7 +42,7 @@ public class FanoutMessage {
             channel.basicNack(message.getMessageProperties().getDeliveryTag(),false, true);
             System.out.println("尝试重发：" + message.getMessageProperties().getConsumerQueue());
         }else {
-            channel.basicAck(message.getMessageProperties().getDeliveryTag(),true);
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
         }
     }
 

@@ -1,11 +1,15 @@
 package com.sy.rabbitmq.producer.service.impl;
 
 import com.sy.rabbitmq.common.config.Constants;
+import com.sy.rabbitmq.common.config.utils.RandomNumber;
 import com.sy.rabbitmq.producer.service.RabbitSendService;
+import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+
+
 
 /**
  * <p>
@@ -38,8 +42,12 @@ public class RabbitSendServiceImpl implements RabbitSendService {
 
     @Override
     public void sendFanoutMessage(String message) {
+        CorrelationData correlationData = new CorrelationData(RandomNumber.getRandom(4));
         rabbitTemplate.convertAndSend(Constants.SY_FANOUT,"",message);
     }
+
+
+
 
 
 }

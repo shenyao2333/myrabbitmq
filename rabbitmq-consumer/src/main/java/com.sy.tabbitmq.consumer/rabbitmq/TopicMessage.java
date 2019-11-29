@@ -1,9 +1,13 @@
 package com.sy.tabbitmq.consumer.rabbitmq;
 
+import com.rabbitmq.client.Channel;
 import com.sy.rabbitmq.common.config.Constants;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
 
 /**
  * <p>
@@ -18,9 +22,19 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class TopicMessage {
 
+    private static int i= 0;
+
     @RabbitListener(queues = Constants.TOPIC_DEMO1_QUEUE)
-    public void test1(String message){
+    public void test1(Message message, Channel channel) throws IOException {
         System.out.println("开始消费topic.demo1的消息：" + message);
+        if (i<8){
+            i++;
+            channel.basicNack(message.getMessageProperties().getDeliveryTag(),false,true);
+        }else {
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
+        }
+
+
     }
 
 

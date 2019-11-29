@@ -11,9 +11,11 @@ spring:
     publisher-confirms: true
     publisher-returns: true
     listener:
-      direct:
-        acknowledge-mode: MANUAL
+#      direct:
+#        acknowledge-mode: MANUAL
       simple:
+        prefetch: 1
         acknowledge-mode: manual
         retry:
           enabled: true
+

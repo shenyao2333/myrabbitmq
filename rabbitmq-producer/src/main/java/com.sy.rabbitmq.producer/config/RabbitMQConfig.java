@@ -3,6 +3,7 @@ package com.sy.rabbitmq.producer.config;
 import com.sy.rabbitmq.producer.rabbitmq.RabbitConfirmCallBack;
 import com.sy.rabbitmq.producer.rabbitmq.RabbitReturnCallback;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
@@ -22,8 +23,10 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class RabbitMQConfig {
 
-    @Autowired
-    private ConnectionFactory connectionFactory;
+    @Bean
+    public RabbitAdmin rabbitAdmin(ConnectionFactory connectionFactory) {
+        return new RabbitAdmin(connectionFactory);
+    }
 
 
     @Bean
@@ -31,6 +34,7 @@ public class RabbitMQConfig {
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
         factory.setMessageConverter(new Jackson2JsonMessageConverter());
+        factory.setAcknowledgeMode(AcknowledgeMode.MANUAL);
         return factory;
     }
 
@@ -42,7 +46,7 @@ public class RabbitMQConfig {
      * @return
      */
     @Bean
-    public RabbitTemplate rabbitTemplate() {
+    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
         RabbitTemplate template = new RabbitTemplate(connectionFactory);
         // template.setMessageConverter(); 可以自定义消息转换器  默认使用的JDK的，所以消息对象需要实现Serializable
         // template.setMessageConverter(new Jackson2JsonMessageConverter());
@@ -106,3 +110,5 @@ public class RabbitMQConfig {
 
 
 }
+
+
