@@ -14,7 +14,6 @@ public class RandomNumber {
     private static String number="0123456789";
 
 
-
     public static String getRandom(int length){
         StringBuffer sb = new StringBuffer();
         for (int i=0;i<length;i++){

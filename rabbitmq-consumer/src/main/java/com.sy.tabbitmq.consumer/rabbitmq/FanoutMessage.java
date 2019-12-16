@@ -1,12 +1,16 @@
 package com.sy.tabbitmq.consumer.rabbitmq;
 
 import com.rabbitmq.client.Channel;
-import com.sy.rabbitmq.common.config.Constants;
+import com.sy.rabbitmq.common.config.rabbitmq.Constants;
+import com.sy.rabbitmq.common.config.rabbitmq.MQMessage;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.support.AmqpHeaders;
+import org.springframework.messaging.handler.annotation.Headers;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 import java.io.IOException;
+import java.util.Map;
 
 
 /**
@@ -18,21 +22,18 @@ import java.io.IOException;
 @Slf4j
 public class FanoutMessage {
 
-    static int i=1;
-
 
     @RabbitListener(queues = Constants.FANOUT_DEMO1_QUEUE)
-    public void test1(Message message, Channel channel) throws IOException {
+    public void test1(@Payload MQMessage message, @Headers Map<String, Object> headers, Channel channel) throws IOException {
         System.out.println("消息1进来");
-        channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
+        channel.basicAck((Long)headers.get(AmqpHeaders.DELIVERY_TAG),false);
     }
 
 
     @RabbitListener(queues = Constants.FANOUT_DEMO2_QUEUE)
-    public void test2(Message message, Channel channel) throws IOException {
-        System.out.println("进来i"+i);
-        System.out.println(message.getMessageProperties().toString());
-        channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
+    public void test2(@Payload MQMessage message, @Headers Map<String, Object> headers, Channel channel) throws IOException {
+        System.out.println(message);
+        channel.basicAck((Long)headers.get(AmqpHeaders.DELIVERY_TAG),false);
     }
 
 

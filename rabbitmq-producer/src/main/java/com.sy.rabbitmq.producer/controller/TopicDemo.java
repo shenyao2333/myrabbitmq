@@ -1,12 +1,10 @@
 package com.sy.rabbitmq.producer.controller;
 
-import com.sy.rabbitmq.common.config.entity.MQMessage;
+import com.sy.rabbitmq.common.config.rabbitmq.MQMessage;
 import com.sy.rabbitmq.producer.service.RabbitSendService;
-import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.Random;
 
 /**
  * <p>

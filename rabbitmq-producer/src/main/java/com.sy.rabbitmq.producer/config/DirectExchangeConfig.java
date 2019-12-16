@@ -1,6 +1,6 @@
 package com.sy.rabbitmq.producer.config;
 
-import com.sy.rabbitmq.common.config.Constants;
+import com.sy.rabbitmq.common.config.rabbitmq.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;

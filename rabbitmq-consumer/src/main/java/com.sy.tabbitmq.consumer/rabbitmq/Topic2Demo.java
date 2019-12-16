@@ -1,11 +1,8 @@
 package com.sy.tabbitmq.consumer.rabbitmq;
 
 import com.rabbitmq.client.Channel;
-import com.sy.rabbitmq.common.config.Constants;
-import com.sy.rabbitmq.common.config.entity.MQMessage;
-import org.springframework.amqp.core.ExchangeTypes;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.MessageProperties;
+import com.sy.rabbitmq.common.config.rabbitmq.Constants;
+import com.sy.rabbitmq.common.config.rabbitmq.MQMessage;
 import org.springframework.amqp.rabbit.annotation.*;
 import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.messaging.handler.annotation.Headers;
@@ -30,6 +27,5 @@ public class Topic2Demo {
         Long deliveryTag = (Long) headers.get(AmqpHeaders.DELIVERY_TAG);
         channel.basicAck(deliveryTag,false);
     }
-
 
 }

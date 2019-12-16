@@ -1,4 +1,4 @@
-package com.sy.rabbitmq.common.config.entity;
+package com.sy.rabbitmq.common.config.rabbitmq;
 
 import lombok.Data;
 
@@ -14,7 +14,7 @@ public class MQMessage implements Serializable {
 
 
     private static final long serialVersionUID = 4426149459382531256L;
-    private String messageId;
+    private Long messageId;
     private String message;
 
 }

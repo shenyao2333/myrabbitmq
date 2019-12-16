@@ -1,4 +1,4 @@
-package com.sy.rabbitmq.common.config;
+package com.sy.rabbitmq.common.config.rabbitmq;
 
 /**
  * <p>
@@ -40,7 +40,7 @@ public class Constants {
      * 与Fanout交换机绑定的队列
      */
     public static final String FANOUT_DEMO1_QUEUE="fanout.demo1";
-    public static final String FANOUT_DEMO2_QUEUE="fanout.demo2";
+    public static final String FANOUT_DEMO2_QUEUE="d.demo2";
 
     /**
      * 创建Topic交换器

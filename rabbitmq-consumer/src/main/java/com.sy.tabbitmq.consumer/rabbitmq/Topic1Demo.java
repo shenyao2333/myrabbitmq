@@ -1,10 +1,9 @@
 package com.sy.tabbitmq.consumer.rabbitmq;
 
 import com.rabbitmq.client.Channel;
-import com.sy.rabbitmq.common.config.Constants;
-import com.sy.rabbitmq.common.config.entity.MQMessage;
+import com.sy.rabbitmq.common.config.rabbitmq.Constants;
+import com.sy.rabbitmq.common.config.rabbitmq.MQMessage;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.*;
 import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.messaging.handler.annotation.Headers;
@@ -41,9 +40,5 @@ public class Topic1Demo {
             channel.basicAck((Long)headers.get(AmqpHeaders.DELIVERY_TAG),false);
         }
     }
-
-
-
-
 
 }

@@ -1,6 +1,6 @@
 package com.sy.rabbitmq.producer.service;
 
-import com.sy.rabbitmq.common.config.entity.MQMessage;
+import com.sy.rabbitmq.common.config.rabbitmq.MQMessage;
 
 /**
  * <p>
@@ -12,12 +12,19 @@ import com.sy.rabbitmq.common.config.entity.MQMessage;
  */
 public interface RabbitSendService {
 
-    void sendAllMessage(String message);
 
     void sendDemo1Message(String message);
 
+    /**
+     * toptic模式的列队2
+     * @param message
+     */
     void sendDemo2Message(MQMessage message);
 
+    /**
+     * fanout广播模式的消息发送
+     * @param message
+     */
     void sendFanoutMessage(String message);
 
 }
