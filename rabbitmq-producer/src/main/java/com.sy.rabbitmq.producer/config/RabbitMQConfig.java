@@ -10,13 +10,12 @@ import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitMessagingTemplate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.stereotype.Component;
 /**
  * @author sy
- * Date: 2019/11/24 23:01
+ * Date: 2019/10/20 23:01
  * @Description 关于MQ的配置
  */
 @Component
@@ -96,7 +95,6 @@ public class RabbitMQConfig {
      */
     @Bean
     public RabbitMessagingTemplate rabbitMessagingTemplate(RabbitTemplate rabbitTemplate) {
-        log.info("未转json格式前------->"+rabbitTemplate.toString());
         RabbitMessagingTemplate rabbitMessagingTemplate = new RabbitMessagingTemplate();
         rabbitMessagingTemplate.setMessageConverter(jackson2Converter());
         rabbitMessagingTemplate.setRabbitTemplate(rabbitTemplate);

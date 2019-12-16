@@ -5,7 +5,7 @@ package com.sy.rabbitmq.common.config;
  * </p>
  *
  * @author ：sy
- * @date ：Created in 2019.11.24 16:41
+ * @date ：Created in 2019.10.24 16:41
  * @version:
  */
 public class Constants {

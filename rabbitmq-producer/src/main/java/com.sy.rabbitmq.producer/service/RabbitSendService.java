@@ -1,5 +1,7 @@
 package com.sy.rabbitmq.producer.service;
 
+import com.sy.rabbitmq.common.config.entity.MQMessage;
+
 /**
  * <p>
  * </p>
@@ -14,7 +16,7 @@ public interface RabbitSendService {
 
     void sendDemo1Message(String message);
 
-    void sendDemo2Message(String message);
+    void sendDemo2Message(MQMessage message);
 
     void sendFanoutMessage(String message);
 

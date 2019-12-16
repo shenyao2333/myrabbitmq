@@ -1,14 +1,15 @@
 package com.sy.rabbitmq.producer.service.impl;
 
 import com.sy.rabbitmq.common.config.Constants;
+import com.sy.rabbitmq.common.config.entity.MQMessage;
 import com.sy.rabbitmq.common.config.utils.RandomNumber;
 import com.sy.rabbitmq.producer.service.RabbitSendService;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
-import org.springframework.amqp.rabbit.core.RabbitMessagingTemplate;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-
+import java.util.Map;
 
 
 /**
@@ -23,27 +24,53 @@ import javax.annotation.Resource;
 public class RabbitSendServiceImpl implements RabbitSendService {
 
     @Resource
-    private RabbitMessagingTemplate rabbitTemplate;
+    private RabbitTemplate rabbitTemplate;
 
     @Override
     public void sendAllMessage(String message) {
-        rabbitTemplate.convertAndSend(Constants.SY_TOPIC,Constants.TOPIC_ALL,message);
+        String random = RandomNumber.getRandom(4);
+        MQMessage mqMessage = new MQMessage();
+        mqMessage.setMessageId(random);
+        mqMessage.setMessage(message);
+        CorrelationData correlationData = new CorrelationData(random);
+        rabbitTemplate.convertAndSend(Constants.SY_TOPIC,Constants.TOPIC_DEMO1_QUEUE,mqMessage,correlationData);
     }
 
     @Override
     public void sendDemo1Message(String message) {
-        rabbitTemplate.convertAndSend(Constants.SY_TOPIC,Constants.TOPIC_DEMO1_QUEUE,message);
+        String random = RandomNumber.getRandom(4);
+        MQMessage mqMessage = new MQMessage();
+        mqMessage.setMessageId(random);
+        mqMessage.setMessage(message);
+        CorrelationData correlationData = new CorrelationData(random);
+        rabbitTemplate.convertAndSend(Constants.SY_TOPIC,Constants.TOPIC_DEMO1_QUEUE,mqMessage,correlationData);
     }
 
     @Override
-    public void sendDemo2Message(String message) {
-        rabbitTemplate.convertAndSend(Constants.SY_TOPIC,Constants.TOPIC_DEMO2_QUEUE,message);
+    public void sendDemo2Message(MQMessage message) {
+        String random = RandomNumber.getRandom(4);
+        message.setMessageId(random);
+        CorrelationData correlationData = new CorrelationData(random);
+        rabbitTemplate.convertAndSend(Constants.SY_TOPIC,Constants.TOPIC_DEMO2_QUEUE,message, correlationData);
     }
 
     @Override
     public void sendFanoutMessage(String message) {
-        CorrelationData correlationData = new CorrelationData(RandomNumber.getRandom(4));
-        rabbitTemplate.convertAndSend(Constants.SY_FANOUT,"",message);
+        String random = RandomNumber.getRandom(4);
+        MQMessage mqMessage = new MQMessage();
+        mqMessage.setMessageId(random);
+        mqMessage.setMessage(message);
+        CorrelationData correlationData = new CorrelationData(random);
+        rabbitTemplate.convertAndSend(Constants.SY_FANOUT,"",mqMessage,correlationData);
+    }
+
+
+
+    public void send(){
+        String random = RandomNumber.getRandom(4);
+        MQMessage mqMessage = new MQMessage();
+
+
     }
 
 

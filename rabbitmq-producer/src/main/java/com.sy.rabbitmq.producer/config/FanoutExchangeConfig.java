@@ -6,22 +6,17 @@ import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
  * @author sy
- * Date: 2019/11/25 10:05
+ * Date: 2019/10/25 10:05
  * @Description fanout广播模式的交换器配置
  */
 @Configuration
 @Slf4j
 public class FanoutExchangeConfig {
-
-
-
 
     @Bean
     FanoutExchange fanoutExchange(){

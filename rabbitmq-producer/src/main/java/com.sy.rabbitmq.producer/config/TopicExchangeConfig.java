@@ -1,26 +1,18 @@
 package com.sy.rabbitmq.producer.config;
 
-
 import com.sy.rabbitmq.common.config.Constants;
 import org.springframework.amqp.core.*;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitAdmin;
-import org.springframework.amqp.rabbit.core.RabbitMessagingTemplate;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 
 
 /**
  * @author sy
- * Date: 2019/11/25 9:30
+ * Date: 2019/10/25 9:30
  * @Description topic交换器配置
  */
 @Configuration
 public class TopicExchangeConfig {
-
 
 
     /**
@@ -52,10 +44,9 @@ public class TopicExchangeConfig {
 
 
 
-
-
     /**
      * 交换机与列队绑定,SY_TOPIC与TOPIC_DEMO2_QUEUE绑定
+     * 但是我这里没
      * @return
      */
     @Bean
@@ -64,29 +55,17 @@ public class TopicExchangeConfig {
                 .with(Constants.TOPIC_DEMO1);
     }
 
+
+
     /**
-     * 交换机与列队绑定,SY_TOPIC与TOPIC_DEMO2_QUEUE绑定
+     * topic与direct最大的区别是topic能够用符号进行匹配，
+     * 我将TOPIC_DEMO2_QUEUE的列队使用Binding：TOPIC_ALL（topic.*）进行绑定。
      * @return
      */
     @Bean
-    Binding bindingQue2() {
+    Binding bindingQue3() {
         return BindingBuilder.bind(queue6()).to(topExchange())
-                .with(Constants.TOPIC_DEMO2);
-    }
-
-/*    @Bean
-    Binding bindingQue3(){
-        return BindingBuilder.bind(queue12()).to(topExchange())
                 .with(Constants.TOPIC_ALL);
-    }*/
-
-
-
-
-
-
-
-
-
+    }
 
 }

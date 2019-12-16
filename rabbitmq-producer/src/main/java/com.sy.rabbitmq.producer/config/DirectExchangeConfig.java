@@ -3,15 +3,13 @@ package com.sy.rabbitmq.producer.config;
 import com.sy.rabbitmq.common.config.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 
 /**
  * @author sy
- * Date: 2019/11/25 9:30
+ * Date: 2019/10/25 9:30
  * @Description direct交换器配置
  */
 @Slf4j
@@ -20,7 +18,7 @@ public class DirectExchangeConfig {
 
 
     /**
-     * 声明一个Fanout（交换机），是Fanout形式,名为Constants.SY_TOPIC
+     * 声明一个direct（交换机），是Fanout形式,名为Constants.SY_DIRECT（自定义的）
      * 参数说明：
      * 1、第一个为交换器名
      * 2、是否持久化，默认true
@@ -34,7 +32,7 @@ public class DirectExchangeConfig {
     }
 
     /**
-     * 声明一个列队，列队名为Constants.FANOUT_DEMO1_QUEUE，不持久化，开发中需要为true
+     * 声明一个列队，参数一：列队名为Constants.FANOUT_DEMO1_QUEUE，参数二：是否持久化
      * @return
      */
     @Bean
