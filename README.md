@@ -1,5 +1,5 @@
 # myrabbitmq
-RabbitMQ实战
+RabbitMQ实战练习
 
 
 #### 项目概述
