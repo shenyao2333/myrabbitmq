@@ -3,11 +3,11 @@ server:
 
 spring:
   rabbitmq:
-    host: 47.97.192.128
+    host: 123.56.97.130
     port: 5672
     username: shenyao
     password: 123456
-    virtual-host: /test
+    virtual-host: /
     publisher-confirms: true
     publisher-returns: true
     template:

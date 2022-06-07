@@ -69,6 +69,10 @@ public class Constants {
     public static final String DIRECT_DEMO1_QUEUE="direct1.demo1";
     public static final String DIRECT_DEMO2_QUEUE="direct1.demo2";
 
-
+    /**
+     * direct 交换器
+     */
+    public static final String SY_DELAY="sy_delay";
+    public static final String DELAY_QUEUE="delay.queue";
 
 }

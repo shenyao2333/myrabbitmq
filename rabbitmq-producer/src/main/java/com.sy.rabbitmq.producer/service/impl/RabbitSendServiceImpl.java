@@ -4,6 +4,9 @@ import com.sy.rabbitmq.common.config.rabbitmq.Constants;
 import com.sy.rabbitmq.common.config.rabbitmq.MQMessage;
 import com.sy.rabbitmq.common.config.utils.IdUtils;
 import com.sy.rabbitmq.producer.service.RabbitSendService;
+import org.springframework.amqp.AmqpException;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessagePostProcessor;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
@@ -52,8 +55,13 @@ public class RabbitSendServiceImpl implements RabbitSendService {
         long id= new IdUtils().nextId();
         message.setMessageId(id);
         CorrelationData correlationData = new CorrelationData(id+"");
+
         rabbitTemplate.convertAndSend(exchange,routingKey,message,correlationData);
+
+
     }
+
+
 
 
 

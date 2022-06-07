@@ -6,6 +6,9 @@ import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * @author sy
@@ -31,6 +34,21 @@ public class DirectExchangeConfig {
         return new DirectExchange(Constants.SY_DIRECT);
     }
 
+
+    /**
+     * 创建延时交换机
+     * @return
+     */
+    @Bean
+    CustomExchange directDelayedExchange(){
+        Map<String, Object> args = new HashMap<String, Object>();
+        args.put("x-delayed-type", "direct");
+        return new CustomExchange(Constants.SY_DELAY,"x-delayed-message",false,false,args);
+    }
+
+
+
+
     /**
      * 声明一个列队，参数一：列队名为Constants.FANOUT_DEMO1_QUEUE，参数二：是否持久化
      * @return
@@ -49,6 +67,11 @@ public class DirectExchangeConfig {
         return new Queue(Constants.DIRECT_DEMO2_QUEUE, true);
     }
 
+    @Bean
+    public Queue delayQueue(){
+        return new Queue(Constants.DELAY_QUEUE,true);
+    }
+
 
     /**
      * 消息通道与交换器绑定
@@ -65,4 +88,8 @@ public class DirectExchangeConfig {
     }
 
 
+    @Bean
+    Binding fanoutQue3(){
+        return BindingBuilder.bind(delayQueue()).to(directDelayedExchange()).with(Constants.DELAY_QUEUE).noargs();
+    }
 }
